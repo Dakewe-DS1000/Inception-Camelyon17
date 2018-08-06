@@ -13,6 +13,11 @@ import matplotlib.pyplot as plt
 # 仅使用GPU0 GeForce GTX 1080Ti
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
+# 迁移训练模型保存
+save_file_name_TransferTraining = "D:\\Inception-Camelyon17\\modules\\transfer_learning_model.h5"
+# 微调模型保存
+save_file_name_fileTune = "D:\\Inception-Camelyon17\\modules\\fine_tune_model.h5"
+
 # 训练数据集的路径
 train_data_dir = "F:\\ai_data\\camelyon17\\research_data\\train"
 # 训练测试数据集的路径
@@ -99,24 +104,25 @@ def main():
     # 设置并执行Transfer Learning迁移训练
     print("Start to Transfer Learning...")
     setup_to_transfer_learning(model, base_model)
-    history_tl = model.fit_generator(generator=train_data_generator,        # 训练数据生成器
-                                     steps_per_epoch=step_per_epoch,        # 一个epoch中的训练次数，这个训练次数可以理解为训练数据的个数，也即遍历学习
-                                     epochs=epoch,                          # 迭代的轮数
-                                     validation_data=val_data_generator,    # 训练测试数据生成器
-                                     validation_steps=1,                    # 指定训练测试数据集的生成器返回次数
-                                     class_weight="auto")
-    model.save("D:\\Inception-Camelyon17\\modules\\transfer_learning_model.h5")
+    history_transferTraining = model.fit_generator(generator=train_data_generator,        # 训练数据生成器
+                                                   steps_per_epoch=step_per_epoch,        # 一个epoch中的训练次数，这个训练次数可以理解为训练数据的个数，也即遍历学习
+                                                   epochs=epoch,                          # 迭代的轮数
+                                                   validation_data=val_data_generator,    # 训练测试数据生成器
+                                                   validation_steps=1,                    # 指定训练测试数据集的生成器返回次数
+                                                   class_weight="auto")
+    model.save(save_file_name_TransferTraining)
     
     # 设置并执行Fine Tune迁移训练
     print("Start to Fine Tune...")
     setup_to_fine_tune(model, base_model)
-    history_ft = model.fit_generator(generator=train_data_generator,
-                                     steps_per_epoch=step_per_epoch,
-                                     epochs=epoch,
-                                     validation_data=val_data_generator,
-                                     validation_steps=1,
-                                     class_weight="auto")
-    model.save("D:\\Inception-Camelyon17\\modules\\fine_tune_model.h5")
+    history_fineTune = model.fit_generator(generator=train_data_generator,
+                                           steps_per_epoch=step_per_epoch,
+                                           epochs=epoch,
+                                           validation_data=val_data_generator,
+                                           validation_steps=1,
+                                           class_weight="auto")
+    model.save(save_file_name_fileTune)
+    print("Saved model to {0}".format(save_file_name_fileTune))
 
     #print("Output transfer learning history...")
     # 输出迁移训练的精度的分布图

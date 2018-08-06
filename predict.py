@@ -13,13 +13,13 @@ from keras.applications.inception_v3 import preprocess_input
 target_size = (299, 299)
 
 # 规定类别的名称
-labels = ("daisy", "dandelion", "roses", "sunflowers", "tulips")
+labels = ("background", "normal", "tumer")
 
 # 模型文件路径
-model_dir = "models\\fine_tune_model.h5"
+model_dir = "D:\\Inception-Camelyon17\\modules\\fine_tune_model.h5"
 
 # 测试文件标签文本
-test_label_dir = "data\\research\\test_label.txt"
+test_label_dir = "F:\\ai_data\\camelyon17\\research_data\\test_label.txt"
 
 # 测试文件的数量
 test_file_number = 260
