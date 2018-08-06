@@ -20,9 +20,9 @@ val_data_dir   = "F:\\ai_data\\camelyon17\\research_data\\validation"
 # 测试数据集的路径
 test_data_dir  = "F:\\ai_data\\camelyon17\\research_data\\test"
 # 类别数目
-class_number = 5
+class_number = 3
 # 每一个epoch内的训练次数
-step_per_epoch = 100000
+step_per_epoch = 4000
 # epoch数目
 epoch = 2
 
@@ -94,7 +94,7 @@ def main():
     # 迁移学习模型骨架
     model = Model(inputs=base_model.input, outputs=predictions)
     # 输出迁移学习框架图
-    #plot(model, to_file="model.png", show_shapes=True, show_layer_names=True)
+    #plot_model(model, to_file="model.png", show_shapes=True, show_layer_names=True)
 
     # 设置并执行Transfer Learning迁移训练
     print("Start to Transfer Learning...")
@@ -105,7 +105,7 @@ def main():
                                      validation_data=val_data_generator,    # 训练测试数据生成器
                                      validation_steps=1,                    # 指定训练测试数据集的生成器返回次数
                                      class_weight="auto")
-    model.save("models\\transfer_learning_model.h5")
+    model.save("D:\\Inception-Camelyon17\\modules\\transfer_learning_model.h5")
     
     # 设置并执行Fine Tune迁移训练
     print("Start to Fine Tune...")
@@ -116,7 +116,7 @@ def main():
                                      validation_data=val_data_generator,
                                      validation_steps=1,
                                      class_weight="auto")
-    model.save("models\\fine_tune_model.h5")
+    model.save("D:\\Inception-Camelyon17\\modules\\fine_tune_model.h5")
 
     #print("Output transfer learning history...")
     # 输出迁移训练的精度的分布图
