@@ -64,9 +64,9 @@ research_data_folder = "F://ai_data/camelyon17/research_data"
 #类名文本
 label_text_file = source_data_folder + "//labels.txt"
 
-train_num = 210000      #用于训练的图像数目
-val_num   = 719      #用于训练测试的图像数目
-test_num  = 4000      #用于最终测试的图像数目
+train_num = 400000      #用于训练的图像数目
+val_num   = 941         #用于训练测试的图像数目
+test_num  = 4000        #用于最终测试的图像数目
 
 def convert_class_data():
     np.random.seed(0)    #使用统一的Seed，保证每次随机的结果都相同
